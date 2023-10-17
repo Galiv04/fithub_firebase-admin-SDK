@@ -3,6 +3,7 @@ from os.path import isfile, join
 import tkinter as tk
 from tkinter.filedialog import askdirectory
 import base64
+import xlsxwriter
 
 root = tk.Tk()
 root.withdraw()
@@ -33,3 +34,19 @@ for f in filenames:
 
 print(names)
 # print(imgStr)
+
+workbook = xlsxwriter.Workbook('exercises.xlsx')
+worksheet = workbook.add_worksheet()
+
+header = [ "Name", "imgHref"]
+
+for i in range(len(names)):
+
+    if i == 0:
+        worksheet.write(i, 0, "Name") #row, column, item
+        worksheet.write(i, 1, "imgHref")
+    else:
+        worksheet.write(i, 0, names[i])
+        worksheet.write(i, 1, imgStr[i])
+    
+workbook.close()
